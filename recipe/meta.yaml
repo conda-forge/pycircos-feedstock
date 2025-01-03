@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pycircos-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pycircos-{{ version }}.tar.gz
   sha256: 53b36f4e7aae7f9c3c94c477460943d3b7d6c96a6e37d5e3c72e5a5dc9cc6d2b
   patches:
     # fixed upstream and we can drop in the next release
@@ -15,14 +15,14 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.5
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.5
+    - python >={{ python_min }}
     - numpy
     - pandas
     - matplotlib-base
@@ -34,6 +34,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/KimBioInfoStudio/PyCircos
